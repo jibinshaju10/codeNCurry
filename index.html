@@ -24,6 +24,11 @@
       font-size: 3em;
       margin: 0;
     }
+    #countdown {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #fff;
+    }
     header p {
       font-size: 1.2em;
       margin-top: 10px;
@@ -65,6 +70,7 @@
     <img src="logo.jpg" alt="Code n Curry logo">
     <h1>Code n Curry</h1>
     <p>Where tech meets taste — Opening soon!</p>
+    <div id="countdown"></div>
   </header>  <section>
     <h2>Our Philosophy</h2>
     <p>At Code n Curry, we serve up fusion flavors with a techie twist. A hub for foodies and coders alike — expect bold curries, comfort bites, and a cozy digital vibe.</p>
@@ -90,5 +96,29 @@
     <p>Instagram: <a href="https://instagram.com/codencurry" target="_blank">@codencurry</a></p>
   </section>  <footer>
     <p>&copy; 2025 Code n Curry. All rights reserved.</p>
-  </footer></body>
+  </footer>
+  <script>
+    const countdownEl = document.getElementById("countdown");
+    const launchDate = new Date("June 2, 2025 10:00:00").getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance < 0) {
+        countdownEl.innerHTML = "We're Open!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `Opening in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
 </html>
