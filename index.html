@@ -83,40 +83,49 @@
     section {
       padding: 40px 20px;
     }
+
     .menu-preview {
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-top: 20px;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 20px;
     }
+
     .menu-item {
       background: white;
       padding: 20px;
       border-radius: 10px;
-      width: 260px;
+      width: 100%;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
     .menu-item h3 {
       margin-bottom: 10px;
       color: #d9534f;
     }
+
     footer {
       background-color: #d9534f;
       color: white;
       padding: 20px;
       margin-top: 40px;
     }
+
     a {
       color: #d9534f;
       text-decoration: none;
     }
+
     .social-icon {
       width: 20px;
       vertical-align: middle;
       margin-right: 5px;
     }
   </style>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRLG5RFC75"></script>
   <script>
@@ -126,12 +135,13 @@
     gtag('config', 'G-NRLG5RFC75');
   </script>
 </head>
+
 <body>
 
   <header>
     <img src="logo.png" alt="Code n Curry logo">
     <h1>Code N Curry Restaurant</h1>
-    <p>Where tech meets taste </p>
+    <p>Where tech meets taste</p>
     <div id="countdown"></div>
   </header>
 
@@ -153,16 +163,74 @@
     <h2>Menu Sneak Peek</h2>
     <div class="menu-preview">
       <div class="menu-item">
-        <h3>Bug-Free Biryani</h3>
-        <p>Fragrant rice, slow-cooked spices, and zero runtime errors.</p>
+        <h3>🍗 Alfaham (Grilled Chicken)</h3>
+        <p>Flavors: BBQ, Butter, Honey, Honey Chilly, Kanthari, Normal, Pepper, Peri Peri, Spicy.</p>
+        <p><strong>Price:</strong> ₹120–₹150 (Quarter), ₹240–₹300 (Half), ₹450–₹520 (Full)</p>
       </div>
+
       <div class="menu-item">
-        <h3>Mandhi Matrix</h3>
-        <p>Yemeni-style rice with slow-cooked meat — a perfect algorithm of flavors.</p>
+        <h3>🍛 Biriyani</h3>
+        <ul>
+          <li>Chicken Biriyani – ₹100 / ₹140</li>
+        </ul>
       </div>
+
       <div class="menu-item">
-        <h3>Debug Dessert</h3>
-        <p>Chilled vanilla milkshake with ice cream — the perfect closing tag to your meal.</p>
+        <h3>🍚 Fried Rice / 🍜 Noodles</h3>
+        <ul>
+          <li>Chicken / Egg / Mixed / Schezwan / Veg – ₹100–₹160</li>
+        </ul>
+      </div>
+
+      <div class="menu-item">
+        <h3>🍽️ Mandhi (Alfaham Mandhi)</h3>
+        <p>Mandhi rice with grilled Alfaham in all your favorite flavors.</p>
+        <p><strong>Price:</strong> ₹200–₹880</p>
+      </div>
+
+      <div class="menu-item">
+        <h3>🌯 Shawarma</h3>
+        <ul>
+          <li>Arabic, Rumali, Meat, Full Meat – Plate or Roll</li>
+          <li>₹80 – ₹150 | Extra Cheese ₹20</li>
+        </ul>
+      </div>
+
+      <div class="menu-item">
+        <h3>🍖 Non-Veg Curries</h3>
+        <ul>
+          <li>Chicken: 65, Butter, Curry, Chilly, Garlic, Ginger, Pepper</li>
+          <li>Beef: Fry, Curry, Roast, Chilly</li>
+          <li>₹80 – ₹500</li>
+        </ul>
+      </div>
+
+      <div class="menu-item">
+        <h3>🥗 Veg Curries</h3>
+        <ul>
+          <li>Chana, Egg, Gobi, Paneer, Tomato, Mix Veg – ₹30–₹450</li>
+        </ul>
+      </div>
+
+      <div class="menu-item">
+        <h3>🧃 Juices & Shakes</h3>
+        <ul>
+          <li>Fruit Juices, Milkshakes & Mojitos – ₹20–₹90</li>
+        </ul>
+      </div>
+
+      <div class="menu-item">
+        <h3>☕ Tea & Snacks</h3>
+        <ul>
+          <li>Tea, Coffee, Horlicks, Boost – ₹8–₹20</li>
+        </ul>
+      </div>
+
+      <div class="menu-item">
+        <h3>🥘 Mixed</h3>
+        <ul>
+          <li>Kothu Porotta</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -183,24 +251,19 @@
   <script>
     const countdownEl = document.getElementById("countdown");
     const launchDate = new Date("June 9, 2025 11:00:00").getTime();
-
     const updateCountdown = () => {
       const now = new Date().getTime();
       const distance = launchDate - now;
-
       if (distance < 0) {
         countdownEl.innerHTML = "We're Open!";
         return;
       }
-
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
       countdownEl.innerHTML = `Opening in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
     };
-
     setInterval(updateCountdown, 1000);
   </script>
 </body>
