@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -33,6 +34,52 @@
       font-size: 1.2em;
       margin-top: 10px;
     }
+    .opening-announcement {
+      background-color: white;
+      color: #222;
+      padding: 30px 40px;
+      border-radius: 20px;
+      text-align: center;
+      font-size: 1.6em;
+      font-family: 'Segoe UI', sans-serif;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      animation: slideFadeIn 1.2s ease-out;
+      max-width: 700px;
+      margin: 40px auto 0 auto;
+      line-height: 1.4;
+    }
+
+    .opening-announcement span {
+      color: #d9534f;
+    }
+
+    .direction-button {
+      margin-top: 20px;
+      display: inline-block;
+      background-color: #d9534f;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.6em;
+      transition: background-color 0.3s ease;
+    }
+
+    .direction-button:hover {
+      background-color: #c6453d;
+    }
+
+    @keyframes slideFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     section {
       padding: 40px 20px;
     }
@@ -71,23 +118,38 @@
     }
   </style>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NRLG5RFC75"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-NRLG5RFC75');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRLG5RFC75"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NRLG5RFC75');
+  </script>
 </head>
-<body>  <header>
+<body>
+
+  <header>
     <img src="logo.png" alt="Code n Curry logo">
     <h1>Code N Curry Restaurant</h1>
-    <p>Where tech meets taste — Opening on 9th June 2025</p>
+    <p>Where tech meets taste </p>
     <div id="countdown"></div>
-  </header>  <section>
+  </header>
+
+  <div class="opening-announcement">
+    🎉 Big news: <span>We’re opening on June 9th.</span><br>
+    See you there! 🎉
+    <br>
+    <a class="direction-button" href="https://maps.app.goo.gl/FDryj3SfWuqUBVVh8" target="_blank">
+      Get Directions
+    </a>
+  </div>
+
+  <section>
     <h2>Our Philosophy</h2>
     <p>At Code n Curry, we serve up fusion flavors with a techie twist. A hub for foodies and coders alike — expect bold curries, comfort bites, and a cozy digital vibe.</p>
-  </section>  <section>
+  </section>
+
+  <section>
     <h2>Menu Sneak Peek</h2>
     <div class="menu-preview">
       <div class="menu-item">
@@ -103,16 +165,21 @@
         <p>Chilled vanilla milkshake with ice cream — the perfect closing tag to your meal.</p>
       </div>
     </div>
-  </section>  <section>
-    <h2>Stay Connected</h2
+  </section>
+
+  <section>
+    <h2>Stay Connected</h2>
     <p>Address: Malayora Hwy, Near Vimal Jyothi Engineering College, Chemperi, Kannur</p>                     
     <p>
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon">
       <a href="https://instagram.com/codencurry" target="_blank">codencurry</a>
     </p>
-  </section>  <footer>
+  </section>
+
+  <footer>
     <p>&copy; 2025 Code N Curry. All rights reserved.</p>
   </footer>
+
   <script>
     const countdownEl = document.getElementById("countdown");
     const launchDate = new Date("June 9, 2025 11:00:00").getTime();
