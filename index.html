@@ -283,20 +283,23 @@
   </section>
   <!-- Contact Form Section -->
   <section>
-    <h2>Contact Us</h2>
-    <form id="messageForm" style="max-width: 500px; margin: 0 auto; text-align: left;">
-      <label for="name">Name</label><br />
-      <input type="text" id="name" required style="width: 100%; padding: 10px; margin-bottom: 15px;" />
+  <h2>Contact Us</h2>
+  <form id="messageForm" style="max-width: 500px; margin: 0 auto; text-align: left;">
+    <label for="name">Name</label><br />
+    <input type="text" id="name" required style="width: 100%; padding: 10px; margin-bottom: 15px;" />
 
-      <label for="message">Message</label><br />
-      <textarea id="message" rows="4" required style="width: 100%; padding: 10px;"></textarea>
+    <label for="email">Email</label><br />
+    <input type="email" id="email" required style="width: 100%; padding: 10px; margin-bottom: 15px;" />
 
-      <button type="submit" style="margin-top: 15px; background-color: #d9534f; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-        Send Message
-      </button>
-      <p id="status" style="margin-top: 10px;"></p>
-    </form>
-  </section>
+    <label for="message">Message</label><br />
+    <textarea id="message" rows="4" required style="width: 100%; padding: 10px;"></textarea>
+
+    <button type="submit" style="margin-top: 15px; background-color: #d9534f; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+      Send Message
+    </button>
+    <p id="status" style="margin-top: 10px;"></p>
+  </form>
+</section>
   <footer>
     <p>&copy; 2025 Code N Curry. All rights reserved.</p>
   </footer>
@@ -318,34 +321,34 @@
       countdownEl.innerHTML = `Opening in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
     };
     setInterval(updateCountdown, 1000);
-     // CallMeBot Form Integration
-    document.getElementById("messageForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+  document.getElementById("messageForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      const name = document.getElementById("name").value.trim();
-      const message = document.getElementById("message").value.trim();
-      const statusEl = document.getElementById("status");
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const statusEl = document.getElementById("status");
 
-      const phone = "447469501773"; // Your CallMeBot phone number
-      const apikey = "6276628";     // Your CallMeBot API key
-      const text = encodeURIComponent(`Message from ${name}: ${message}`);
-      const url = `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${text}&apikey=${apikey}`;
+    const phone = "447469501773"; // Your CallMeBot phone number (no +)
+    const apikey = "6276628";     // Your CallMeBot API key
+    const text = encodeURIComponent(`New message:\nName: ${name}\nEmail: ${email}\nMessage: ${message}`);
+    const url = `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${text}&apikey=${apikey}`;
 
-      statusEl.textContent = "Sending...";
-      fetch(url)
-        .then(response => {
-          if (response.ok) {
-            statusEl.textContent = "✅ Your message was sent!";
-            document.getElementById("messageForm").reset();
-          } else {
-            statusEl.textContent = "❌ Failed to send. Please try again.";
-          }
-        })
-        .catch(error => {
-          statusEl.textContent = "❌ An error occurred.";
-          console.error("CallMeBot error:", error);
-        });
-    });
+    statusEl.textContent = "Sending...";
+    fetch(url)
+      .then(response => {
+        if (response.ok) {
+          statusEl.textContent = "✅ Your message was sent!";
+          document.getElementById("messageForm").reset();
+        } else {
+          statusEl.textContent = "❌ Failed to send. Please try again.";
+        }
+      })
+      .catch(error => {
+        statusEl.textContent = "❌ An error occurred.";
+        console.error("CallMeBot error:", error);
+      });
+  });
   </script>
 </body>
 </html>
