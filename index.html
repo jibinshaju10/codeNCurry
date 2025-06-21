@@ -1,231 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Code N Curry</title>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Code N Curry",
-  "url": "https://codencurry.in",
-  "sameAs": [
-    "https://www.instagram.com/codencurry/"
-  ]
-}
-  </script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans- // CallMeBot Form Integration
-    document.getElementById("messageForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Code N Curry</title>
+<style>
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #fffefa;
+    color: #2e2e2e;
+    line-height: 1.6;
+  }
+  a {
+    color: #e14c4c;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 
-      const name = document.getElementById("name").value.trim();
-      const message = document.getElementById("message").value.trim();
-      const statusEl = document.getElementById("status");
+  /* Container */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 15px;
+  }
 
-      const phone = "447469501773"; // Your CallMeBot phone number
-      const apikey = "6276628";     // Your CallMeBot API key
-      const text = encodeURIComponent(`Message from ${name}: ${message}`);
-      const url = `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${text}&apikey=${apikey}`;
+  /* Header */
+  header {
+    background: #e14c4c;
+    color: white;
+    padding: 40px 15px;
+    text-align: center;
+    position: relative;
+  }
+  header img {
+    width: 140px;
+    margin-bottom: 15px;
+  }
+  header h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: 3px;
+  }
+  header p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+  #countdown {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    background: rgba(255 255 255 / 0.2);
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 25px;
+    letter-spacing: 1px;
+  }
 
-      statusEl.textContent = "Sending...";
-      fetch(url)
-        .then(response => {
-          if (response.ok) {
-            statusEl.textContent = "✅ Your message was sent!";
-            document.getElementById("messageForm").reset();
-          } else {
-            statusEl.textContent = "❌ Failed to send. Please try again.";
-          }
-        })
-        .catch(error => {
-          statusEl.textContent = "❌ An error occurred.";
-          console.error("CallMeBot error:", error);
-        });
-    });;
-      background: #fff8f0;
-      color: #333;
-      text-align: center;
-    }
-    header {
-      background-color: black;
-      color: white;
-      padding: 60px 20px 30px 20px;
-    }
-    header img {
-      max-width: 180px;
-      margin-bottom: 20px;
-    }
+  /* Announcements */
+  section.announcements {
+    background: #fff5f5;
+    padding: 40px 15px;
+    border-radius: 15px;
+    margin: 40px 0;
+    box-shadow: 0 5px 25px rgba(225, 76, 76, 0.15);
+  }
+  section.announcements h2 {
+    text-align: center;
+    color: #e14c4c;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 1.5px;
+  }
+  .announcement-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  .announcement-card {
+    background: white;
+    border-left: 6px solid #e14c4c;
+    border-radius: 10px;
+    padding: 20px 25px;
+    width: 320px;
+    box-shadow: 0 3px 12px rgb(225 76 76 / 0.15);
+    transition: transform 0.3s ease;
+  }
+  .announcement-card:hover {
+    transform: translateY(-8px);
+  }
+  .announcement-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: #d43b3b;
+  }
+  .announcement-card p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .announcement-card small {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #a64444;
+  }
+
+  /* Philosophy */
+  section.philosophy {
+    max-width: 800px;
+    margin: 60px auto;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #4c4c4c;
+  }
+  section.philosophy h2 {
+    color: #e14c4c;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+  }
+
+  /* Menu */
+  section.menu {
+    padding: 40px 15px;
+  }
+  section.menu h2 {
+    text-align: center;
+    color: #e14c4c;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 25px;
+  }
+  .menu-item {
+    background: white;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 6px 18px rgba(225, 76, 76, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  .menu-item:hover {
+    box-shadow: 0 10px 30px rgba(225, 76, 76, 0.2);
+  }
+  .menu-item h3 {
+    color: #e14c4c;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  .menu-item p, .menu-item ul {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.4;
+  }
+  .menu-item ul {
+    list-style: inside disc;
+  }
+
+  /* Contact */
+  section.contact {
+    background: #e14c4c;
+    color: white;
+    padding: 40px 15px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 60px auto 80px auto;
+  }
+  section.contact h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  form textarea {
+    min-height: 100px;
+  }
+  form button {
+    display: block;
+    width: 100%;
+    background: white;
+    color: #e14c4c;
+    font-weight: 700;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+  }
+  form button:hover {
+    background: #f3c7c7;
+  }
+  #status {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 25px 15px;
+    background: #2e2e2e;
+    color: white;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+
+  /* Social Links */
+  .social {
+    margin-top: 12px;
+  }
+  .social a {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+  }
+  .social img {
+    width: 22px;
+    margin-right: 6px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
     header h1 {
-      font-size: 3em;
-      margin: 0;
+      font-size: 2.2rem;
     }
-    #countdown {
-      font-size: 1.5em;
-      margin-top: 20px;
-      color: #fff;
-    }
-    header p {
-      font-size: 1.2em;
-      margin-top: 10px;
-    }
-    .opening-announcement {
-      background-color: white;
-      color: #222;
-      padding: 30px 40px;
-      border-radius: 20px;
-      text-align: center;
-      font-size: 1.6em;
-      font-family: 'Segoe UI', sans-serif;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      animation: slideFadeIn 1.2s ease-out;
-      max-width: 700px;
-      margin: 40px auto 0 auto;
-      line-height: 1.4;
-    }
-
-    .opening-announcement span {
-      color: #d9534f;
-    }
-
-    .direction-button {
-      margin-top: 20px;
-      display: inline-block;
-      background-color: #d9534f;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: 0.6em;
-      transition: background-color 0.3s ease;
-    }
-
-    .direction-button:hover {
-      background-color: #c6453d;
-    }
-
-    @keyframes slideFadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    section {
-      padding: 40px 20px;
-    }
-
-    .menu-preview {
-      display: flex;
+    section.announcements .announcement-list {
       flex-direction: column;
-      align-items: center;
-      text-align: left;
-      max-width: 900px;
-      margin: 0 auto;
-      gap: 20px;
+      gap: 18px;
     }
-
-    .menu-item {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 100%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    section.menu .menu-grid {
+      grid-template-columns: 1fr;
     }
-
-    .menu-item h3 {
-      margin-bottom: 10px;
-      color: #d9534f;
-    }
-
-    footer {
-      background-color: #d9534f;
-      color: white;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    a {
-      color: #d9534f;
-      text-decoration: none;
-    }
-
-    .social-icon {
-      width: 20px;
-      vertical-align: middle;
-      margin-right: 5px;
-    }
-  </style>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRLG5RFC75"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-NRLG5RFC75');
-  </script>
+  }
+</style>
 </head>
-
 <body>
 
-  <header>
-    <img src="logo.png" alt="Code n Curry logo">
-    <h1>Code N Curry Restaurant</h1>
-    <p>Where tech meets taste</p>
-    <div id="countdown"></div>
-  </header>
+<header>
+  <img src="logo.png" alt="Code n Curry Logo" />
+  <h1>Code N Curry</h1>
+  <p>Where tech meets taste</p>
+  <div id="countdown">We're Open!</div>
+</header>
 
-  <div class="opening-announcement">
-    🎉 Big news: <span>We’re opening on June 9th.</span><br>
-    See you there! 🎉
-    <br>
-    <a class="direction-button" href="https://maps.app.goo.gl/FDryj3SfWuqUBVVh8" target="_blank">
-      Get Directions
-    </a>
-  </div>
+<div class="container">
 
-  <section>
+  <section class="announcements">
+    <h2>📢 Announcements</h2>
+    <div class="announcement-list">
+      <article class="announcement-card">
+        <h3>🎓 Student Exclusive Offer</h3>
+        <p>10% OFF for Vimal Jyothi Engineering College students on orders above ₹100. Show your college ID at billing.</p>
+        <small>Valid till July 10, 2025</small>
+      </article>
+      <!--
+      <article class="announcement-card">
+        <h3>🕒 New Timing</h3>
+        <p>We’re now open from 11:00 AM to 11:00 PM every day!</p>
+        <small>June 21, 2025</small>
+      </article>
+
+      <article class="announcement-card">
+        <h3>🍛 New Dish Alert</h3>
+        <p>Try our new Chicken Mughlai — rich, creamy & irresistible.</p>
+        <small>June 20, 2025</small>
+      </article>
+      -->
+    </div>
+  </section>
+
+  <section class="philosophy">
     <h2>Our Philosophy</h2>
     <p>At Code n Curry, we serve up fusion flavors with a techie twist. A hub for foodies and coders alike — expect bold curries, comfort bites, and a cozy digital vibe.</p>
   </section>
 
-  <section>
+  <section class="menu">
     <h2>Menu Sneak Peek</h2>
-    <div class="menu-preview">
+    <div class="menu-grid">
       <div class="menu-item">
         <h3>🍗 Alfaham (Grilled Chicken)</h3>
         <p>Flavors: BBQ, Butter, Honey, Honey Chilly, Kanthari, Normal, Pepper, Peri Peri, Spicy.</p>
         <p><strong>Price:</strong> ₹120–₹150 (Quarter), ₹240–₹300 (Half), ₹450–₹520 (Full)</p>
       </div>
-
       <div class="menu-item">
         <h3>🍛 Biriyani</h3>
         <ul>
           <li>Chicken Biriyani – ₹100 / ₹140</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>🍚 Fried Rice / 🍜 Noodles</h3>
         <ul>
           <li>Chicken / Egg / Mixed / Schezwan / Veg – ₹100–₹160</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>🍽️ Mandhi (Alfaham Mandhi)</h3>
         <p>Mandhi rice with grilled Alfaham in all your favorite flavors.</p>
         <p><strong>Price:</strong> ₹200–₹880</p>
       </div>
-
       <div class="menu-item">
         <h3>🌯 Shawarma</h3>
         <ul>
@@ -233,7 +336,6 @@
           <li>₹80 – ₹150 | Extra Cheese ₹20</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>🍖 Non-Veg Curries</h3>
         <ul>
@@ -242,28 +344,24 @@
           <li>₹80 – ₹500</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>🥗 Veg Curries</h3>
         <ul>
           <li>Chana, Egg, Gobi, Paneer, Tomato, Mix Veg – ₹30–₹450</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>🧃 Juices & Shakes</h3>
         <ul>
           <li>Fruit Juices, Milkshakes & Mojitos – ₹20–₹90</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>☕ Tea & Snacks</h3>
         <ul>
           <li>Tea, Coffee, Horlicks, Boost – ₹8–₹20</li>
         </ul>
       </div>
-
       <div class="menu-item">
         <h3>🥘 Mixed</h3>
         <ul>
@@ -273,55 +371,40 @@
     </div>
   </section>
 
-  <section>
-    <h2>Stay Connected</h2>
-    <p>Address: Malayora Hwy, Near Vimal Jyothi Engineering College, Chemperi, Kannur</p>                     
-    <p>
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon">
-      <a href="https://instagram.com/codencurry" target="_blank">codencurry</a>
-    </p>
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <form id="messageForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" required placeholder="Your Name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required placeholder="you@example.com" />
+
+      <label for="message">Message</label>
+      <textarea id="message" required placeholder="Write your message here..."></textarea>
+
+      <button type="submit">Send Message</button>
+      <p id="status"></p>
+    </form>
   </section>
-  <!-- Contact Form Section -->
-  <section>
-  <h2>Contact Us</h2>
-  <form id="messageForm" style="max-width: 500px; margin: 0 auto; text-align: left;">
-    <label for="name">Name</label><br />
-    <input type="text" id="name" required style="width: 100%; padding: 10px; margin-bottom: 15px;" />
 
-    <label for="email">Email</label><br />
-    <input type="email" id="email" required style="width: 100%; padding: 10px; margin-bottom: 15px;" />
+  <section class="social" style="text-align:center; margin-bottom: 80px;">
+    <p>Find us on Instagram:</p>
+    <a href="https://instagram.com/codencurry" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />@codencurry
+    </a>
+  </section>
 
-    <label for="message">Message</label><br />
-    <textarea id="message" rows="4" required style="width: 100%; padding: 10px;"></textarea>
+</div>
 
-    <button type="submit" style="margin-top: 15px; background-color: #d9534f; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-      Send Message
-    </button>
-    <p id="status" style="margin-top: 10px;"></p>
-  </form>
-</section>
-  <footer>
-    <p>&copy; 2025 Code N Curry. All rights reserved.</p>
-  </footer>
+<footer>
+  &copy; 2025 Code N Curry. All rights reserved.
+</footer>
 
-  <script>
-    const countdownEl = document.getElementById("countdown");
-    const launchDate = new Date("June 9, 2025 11:30:00").getTime();
-    const updateCountdown = () => {
-      const now = new Date().getTime();
-      const distance = launchDate - now;
-      if (distance < 0) {
-        countdownEl.innerHTML = "We're Open!";
-        return;
-      }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      countdownEl.innerHTML = `Opening in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    };
-    setInterval(updateCountdown, 1000);
-  document.getElementById("messageForm").addEventListener("submit", function (e) {
+<script>
+  // Countdown removed because restaurant is open.
+  // Contact form submission with CallMeBot integration
+  document.getElementById("messageForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const name = document.getElementById("name").value.trim();
@@ -345,10 +428,11 @@
         }
       })
       .catch(error => {
-        statusEl.textContent = "";
+        statusEl.textContent = "❌ An error occurred.";
         console.error("CallMeBot error:", error);
       });
   });
-  </script>
+</script>
+
 </body>
 </html>
