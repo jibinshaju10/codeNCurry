@@ -209,7 +209,7 @@
         padding: 0 10px;
       }
       section {
-        padding: 10px 10px;
+        padding: 0px 10px;
       }
     }
   </style>
@@ -254,7 +254,7 @@
     <h2>Menu Sneak Peek</h2>
     <div class="menu-preview">
       <div class="menu-item">
-        <h3>🍗 Alfaham (Grilled Chicken)</h3>
+        <h3>🍗 Al Faham (Grilled Chicken)</h3>
         <p>Flavors: BBQ, Butter, Honey, Honey Chilly, Kanthari, Normal, Pepper, Peri Peri, Spicy.</p>
         <p><strong>Price:</strong> ₹120–₹150 (Quarter), ₹240–₹300 (Half), ₹450–₹520 (Full)</p>
       </div>
@@ -398,6 +398,9 @@
       const url = `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${text}&apikey=${apikey}`;
 
       statusEl.textContent = "Sending...";
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("message").value = "";
       fetch(url)
         .then(response => {
           if (response.ok) {
@@ -408,7 +411,7 @@
           }
         })
         .catch(error => {
-          statusEl.textContent = "❌ An error occurred.";
+          statusEl.textContent = "";
           console.error("CallMeBot error:", error);
         });
     });
