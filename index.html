@@ -132,6 +132,18 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
+    .coded-fries-center {
+      text-align: center;
+    }
+
+    .coded-fries-img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+    }
+
     .menu-item h3 {
       margin-bottom: 10px;
       color: #d9534f;
@@ -209,6 +221,13 @@
       margin-right: 5px;
     }
 
+    /* Old price styling */
+    .old-price {
+      text-decoration: line-through;
+      color: #888;
+      margin-right: 8px;
+    }
+
     /* Responsive */
     @media (max-width: 600px) {
       .announcement-container {
@@ -246,13 +265,17 @@
         <h3> Special Offer</h3>
         <p>Follow on instagram get 5% discount</p>
         <p><strong>Valid for orders above ₹100</strong></p>
-        <small>Limited period offer</small>
-      </div>
-      <div class="announcement-card">
-        <h3>🆕 First Year VJEC Student Offer</h3>
-        <p>First year students of VJEC get 10% discount</p>
-        <small>Limited period offer</small>
-      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🆕 Newly Added Dish: Coded Fries</h2>
+    <div class="menu-item coded-fries-center">
+      <img src="coded-fries.jpg" alt="Coded Fries" class="coded-fries-img" />
+      <h3>🍟 Coded Fries</h3>
+      <p><strong>Tagline:</strong> Crispy. Coded. Craveable.</p>
+      <p>Golden crispy fries with tender chicken, drizzled with creamy sauces — the perfect fusion of crunch and flavor! A must-try innovation from <strong>Code N Curry</strong>.</p>
+      <p><strong>Price:</strong> <span class="old-price">₹200</span> ₹150</p>
     </div>
   </section>
 
