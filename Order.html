@@ -3,29 +3,194 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Food Order Page</title>
+  <title>Order Online | Code N Curry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; background: #fafbfc; margin: 0; }
-    .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 30px 25px; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
-    h2 { margin-top: 0; color: #333; }
-    .category { margin-bottom: 20px; }
-    .category-title { font-size: 1.1em; font-weight: bold; margin-bottom: 8px; color: #0074d9; }
-    .item-row { display: flex; align-items: center; margin-bottom: 8px; }
-    .item-name { flex: 1; }
-    .item-price { width: 60px; }
-    .item-qty input { width: 45px; }
-    .order-summary { margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; }
-    .total { font-weight: bold; margin-top: 10px; color: #006600; }
-    button { background: #25D366; color: #fff; border: none; border-radius: 4px; padding: 10px 18px; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 10px;}
-    button:hover { background: #128C7E; }
-    .note { color: #888; font-size: 0.97em; margin-top: 16px;}
+    :root {
+      --primary: #d9534f;
+      --secondary: #fff8f0;
+      --accent: #22223b;
+      --card-bg: #fff;
+      --shadow: 0 8px 32px rgba(0,0,0,0.10);
+      --green: #25D366;
+      --green-dark: #128C7E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--secondary);
+      color: var(--accent);
+      min-height: 100vh;
+    }
+    .order-header {
+      background: linear-gradient(90deg, #000 60%, var(--primary) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 38px 0 24px 0;
+      margin-bottom: 0;
+      border-radius: 0 0 24px 24px;
+      box-shadow: var(--shadow);
+    }
+    .order-header h2 {
+      font-size: 2.2em;
+      margin: 0 0 8px 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .order-header p {
+      font-size: 1.1em;
+      margin: 0;
+      font-weight: 400;
+    }
+    .container {
+      max-width: 700px;
+      margin: 32px auto 0 auto;
+      background: var(--card-bg);
+      padding: 32px 22px 22px 22px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .category {
+      margin-bottom: 28px;
+    }
+    .category-title {
+      font-size: 1.15em;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+    .item-row {
+      display: flex;
+      align-items: center;
+      background: #fff8f0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(217,83,79,0.07);
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      transition: box-shadow 0.2s;
+    }
+    .item-row:hover {
+      box-shadow: 0 4px 16px rgba(217,83,79,0.13);
+    }
+    .item-name {
+      flex: 1;
+      font-weight: 500;
+      font-size: 1.08em;
+    }
+    .item-price {
+      width: 70px;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: right;
+    }
+    .item-qty input {
+      width: 48px;
+      padding: 6px 4px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      text-align: center;
+      margin-left: 8px;
+    }
+    .order-summary {
+      position: sticky;
+      bottom: 0;
+      background: #fff8f0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(217,83,79,0.07);
+      margin-top: 32px;
+      padding: 18px 16px 10px 16px;
+      z-index: 10;
+    }
+    .order-summary ul {
+      margin: 0 0 8px 0;
+      padding-left: 18px;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 10px;
+      color: #006600;
+      font-size: 1.15em;
+    }
+    button, .order-btn {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 12px 28px;
+      font-size: 1.08em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(37,211,102,0.07);
+    }
+    button:disabled, .order-btn:disabled {
+      background: #bdbdbd;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled), .order-btn:hover:not(:disabled) {
+      background: var(--green-dark);
+    }
+    .note {
+      color: #888;
+      font-size: 0.97em;
+      margin-top: 16px;
+      text-align: center;
+    }    .address-block {
+      margin: 24px 0 0 0;
+    }
+    .address-label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .address-textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      font-family: inherit;
+      resize: vertical;
+    }    .remove-btn {
+      background-color: #eee;
+      color: #d9534f;
+      border: none;
+      border-radius: 5px;
+      padding: 7px 14px;
+      font-size: 1em;
+      margin-left: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .remove-btn:hover {
+      background-color: #d9534f;
+      color: #fff;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 12px 2vw 12px 2vw; }
+      .order-header { padding: 28px 0 16px 0; }
+    }
   </style>
 </head>
 <body>
+  <div class="order-header">
+    <h2>Order Online</h2>
+    <p>Fresh, fast, and delivered to your table or door!</p>
+  </div>
   <div class="container">
-    <h2>Order Food</h2>
     <form id="orderForm">
       <div id="menu"></div>
+        <div class="address-block">
+          <label for="address" class="address-label">Delivery Address</label>
+          <textarea id="address" name="address" rows="2" class="address-textarea" placeholder="Enter your address (optional for dine-in)"></textarea>
+        </div>
       <div class="order-summary" id="orderSummary">
         <div>No items selected.</div>
       </div>
@@ -73,7 +238,10 @@ function renderMenu(menuData) {
         <div class="item-price">₹${item.Price}</div>
         <div class="item-qty">
           <input type="number" min="0" max="99" value="0" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">
+          <button type="button" class="add-btn" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">Add</button>
+          <button type="button" class="remove-btn" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">Remove</button>
         </div>
+
       `;
       catDiv.appendChild(row);
     });
@@ -126,10 +294,12 @@ function updateOrderSummary() {
 function generateWhatsAppMessage(selections) {
   let msg = 'Hello, I would like to place the following order:%0A';
   selections.forEach(sel => {
-    msg += `- ${sel.item} (${sel.qty} x $${sel.price})%0A`;
+    msg += `- ${sel.item} (${sel.qty} x ₹${sel.price})%0A`;
   });
   const total = selections.reduce((sum, s) => sum + s.price * s.qty, 0);
-  msg += `Total: $${total}`;
+  msg += `Total: ₹${total}`;
+  const address = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
+  if(address) msg += `%0ADelivery Address: ${encodeURIComponent(address)}`;
   return msg;
 }
 
@@ -145,6 +315,26 @@ document.addEventListener('DOMContentLoaded', async function() {
   renderMenu(menuData);
   updateOrderSummary();
   document.getElementById('menu').addEventListener('input', updateOrderSummary);
+    document.getElementById('menu').addEventListener('click', function(e) {
+      if (e.target.classList.contains('add-btn')) {
+        const input = e.target.parentElement.querySelector('input[type="number"]');
+        if (input) {
+          let val = parseInt(input.value, 10) || 0;
+          input.value = val + 1;
+          updateOrderSummary();
+        }
+      }
+      if (e.target.classList.contains('remove-btn')) {
+        const input = e.target.parentElement.querySelector('input[type="number"]');
+        if (input) {
+          let val = parseInt(input.value, 10) || 0;
+          if (val > 0) {
+            input.value = val - 1;
+            updateOrderSummary();
+          }
+        }
+      }
+    });
   document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const selections = getOrderSelections();
