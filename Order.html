@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Order Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafbfc; margin: 0; }
+    .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 30px 25px; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    h2 { margin-top: 0; color: #333; }
+    .category { margin-bottom: 20px; }
+    .category-title { font-size: 1.1em; font-weight: bold; margin-bottom: 8px; color: #0074d9; }
+    .item-row { display: flex; align-items: center; margin-bottom: 8px; }
+    .item-name { flex: 1; }
+    .item-price { width: 60px; }
+    .item-qty input { width: 45px; }
+    .order-summary { margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; }
+    .total { font-weight: bold; margin-top: 10px; color: #006600; }
+    button { background: #25D366; color: #fff; border: none; border-radius: 4px; padding: 10px 18px; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 10px;}
+    button:hover { background: #128C7E; }
+    .note { color: #888; font-size: 0.97em; margin-top: 16px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Order Food</h2>
+    <form id="orderForm">
+      <div id="menu"></div>
+      <div class="order-summary" id="orderSummary">
+        <div>No items selected.</div>
+      </div>
+      <button type="submit" id="whatsappBtn" disabled>Order via WhatsApp</button>
+      <div class="note">Order will be sent via WhatsApp. No payment required on this page.</div>
+    </form>
+  </div>
+<script>
+// ========== CSV Fetch and Parse ==========
+async function fetchMenuCSV(path) {
+  const resp = await fetch(path);
+  const csv = await resp.text();
+  return parseCSV(csv);
+}
+
+function parseCSV(csv) {
+  const lines = csv.trim().split('\n');
+  const header = lines[0].split(',').map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const cols = line.split(',').map(c => c.trim());
+    let obj = {};
+    header.forEach((h, i) => obj[h] = cols[i]);
+    return obj;
+  });
+}
+
+// ========== Render Menu ==========
+function renderMenu(menuData) {
+  const grouped = {};
+  menuData.forEach(item => {
+    if (!grouped[item.Category]) grouped[item.Category] = [];
+    grouped[item.Category].push(item);
+  });
+  const menuDiv = document.getElementById('menu');
+  menuDiv.innerHTML = '';
+  Object.entries(grouped).forEach(([cat, items]) => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'category';
+    catDiv.innerHTML = `<div class="category-title">${cat}</div>`;
+    items.forEach((item, idx) => {
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.innerHTML = `
+        <div class="item-name">${item.Item}</div>
+        <div class="item-price">₹${item.Price}</div>
+        <div class="item-qty">
+          <input type="number" min="0" max="99" value="0" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">
+        </div>
+      `;
+      catDiv.appendChild(row);
+    });
+    menuDiv.appendChild(catDiv);
+  });
+}
+
+// ========== Order Logic ==========
+function getOrderSelections() {
+  const inputs = document.querySelectorAll('.item-qty input');
+  const items = [];
+  inputs.forEach(input => {
+    const qty = parseInt(input.value, 10);
+    if (qty > 0) {
+      items.push({
+        category: input.getAttribute('data-category'),
+        item: input.getAttribute('data-item'),
+        price: parseFloat(input.getAttribute('data-price')),
+        qty: qty
+      });
+    }
+  });
+  return items;
+}
+
+function updateOrderSummary() {
+  const selections = getOrderSelections();
+  const summaryDiv = document.getElementById('orderSummary');
+  const btn = document.getElementById('whatsappBtn');
+  if (selections.length === 0) {
+    summaryDiv.innerHTML = '<div>No items selected.</div>';
+    btn.disabled = true;
+    return;
+  }
+  let total = 0;
+  let html = '<ul style="padding-left:18px">';
+  selections.forEach(sel => {
+    const itemTotal = sel.price * sel.qty;
+    total += itemTotal;
+    html += `<li>${sel.item} (${sel.qty} x ₹${sel.price}) = ₹${itemTotal}</li>`;
+  });
+  html += '</ul>';
+  html += `<div class="total">Total: ₹${total}</div>`;
+  summaryDiv.innerHTML = html;
+  btn.disabled = false;
+  btn.textContent = "Order via WhatsApp";
+}
+
+// ========== WhatsApp Order ==========
+function generateWhatsAppMessage(selections) {
+  let msg = 'Hello, I would like to place the following order:%0A';
+  selections.forEach(sel => {
+    msg += `- ${sel.item} (${sel.qty} x $${sel.price})%0A`;
+  });
+  const total = selections.reduce((sum, s) => sum + s.price * s.qty, 0);
+  msg += `Total: $${total}`;
+  return msg;
+}
+
+function getWhatsAppLink(message, phoneNumber='') {
+  // phoneNumber should be in international format, e.g., 911234567890
+  // If left blank, user chooses contact in WhatsApp
+  return `https://wa.me/${phoneNumber}?text=${message}`;
+}
+
+// ========== Event Listeners ==========
+document.addEventListener('DOMContentLoaded', async function() {
+  const menuData = await fetchMenuCSV('menu.csv');
+  renderMenu(menuData);
+  updateOrderSummary();
+  document.getElementById('menu').addEventListener('input', updateOrderSummary);
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const selections = getOrderSelections();
+    if (selections.length === 0) return;
+    const msg = generateWhatsAppMessage(selections);
+    // Set your WhatsApp phone number in international format (without +), or leave blank for user to pick
+    const waLink = getWhatsAppLink(msg, /*'911234567890'*/ '');
+    window.open(waLink, '_blank');
+    document.getElementById('whatsappBtn').textContent = "Sending...";
+  });
+});
+</script>
+</body>
+</html>
