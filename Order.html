@@ -85,6 +85,7 @@
       font-weight: 600;
       color: var(--primary);
       text-align: right;
+      margin-top: 6px;
     }
     .item-qty input {
       width: 48px;
@@ -93,7 +94,7 @@
       border-radius: 5px;
       font-size: 1em;
       text-align: center;
-      margin-left: 8px;
+      margin-left: 0px;
     }
     .order-summary {
       position: sticky;
@@ -173,9 +174,27 @@
       background-color: #d9534f;
       color: #fff;
     }
+    @media (max-width: 900px) {
+      .order-grid { flex-direction: column; gap: 0; }
+      .order-grid > div:last-child { max-width: 100%; }
+    }
     @media (max-width: 700px) {
-      .container { padding: 12px 2vw 12px 2vw; }
-      .order-header { padding: 28px 0 16px 0; }
+      .container { padding: 8px 1vw 8px 1vw; }
+      .order-header { padding: 18px 0 10px 0; }
+      .order-header h2 { font-size: 1.3em; }
+      .order-header p { font-size: 1em; }
+      .category-title { font-size: 1em; }
+      .item-row { flex-direction: column; align-items: stretch; padding: 8px 6px; }
+      .item-name, .item-price, .item-qty { text-align: left; font-size: 1em; }
+      .item-qty { margin-top: 6px; }
+      .add-btn, .remove-btn, button, .order-btn {
+        width: 100%;
+        margin: 6px 0 0 0;
+        font-size: 1em;
+        padding: 10px 0;
+      }
+      .order-summary { padding: 12px 6px 8px 6px; font-size: 0.98em; }
+      .address-textarea { font-size: 1em; }
     }
   </style>
 </head>
