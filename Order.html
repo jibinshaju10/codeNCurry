@@ -4,227 +4,171 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Order Online | Code N Curry</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary: #d9534f;
-      --secondary: #fff8f0;
-      --accent: #22223b;
-      --card-bg: #fff;
-      --shadow: 0 8px 32px rgba(0,0,0,0.10);
-      --green: #25D366;
-      --green-dark: #128C7E;
+      --red: #e63946; --red-dark: #c1121f; --red-glow: rgba(230,57,70,0.3);
+      --orange: #f4a261; --black: #0a0a0a; --dark: #111111; --dark2: #1a1a1a;
+      --glass: rgba(255,255,255,0.05); --glass-b: rgba(255,255,255,0.10);
+      --text: #f1f1f1; --muted: #888; --white: #fff;
+      --green: #25D366; --green-dark: #128C7E;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: var(--secondary);
-      color: var(--accent);
-      min-height: 100vh;
-    }
-    .order-header {
-      background: linear-gradient(90deg, #000 60%, var(--primary) 100%);
-      color: #fff;
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--text); min-height: 100vh; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* Navbar */
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-b); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 32px; border-radius: 6px; }
+    .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--white); font-size: 1em; }
+    .back-btn { background: var(--glass); border: 1px solid var(--glass-b); color: #ccc; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 0.88em; font-weight: 500; transition: all 0.2s; }
+    .back-btn:hover { border-color: var(--red); color: var(--white); }
+
+    /* Hero bar */
+    .order-hero {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--glass-b);
+      padding: 48px 24px 36px;
       text-align: center;
-      padding: 38px 0 24px 0;
-      margin-bottom: 0;
-      border-radius: 0 0 24px 24px;
-      box-shadow: var(--shadow);
-    }
-    .order-header h2 {
-      font-size: 2.2em;
-      margin: 0 0 8px 0;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .order-header p {
-      font-size: 1.1em;
-      margin: 0;
-      font-weight: 400;
-    }
-    .container {
-      max-width: 700px;
-      margin: 32px auto 0 auto;
-      background: var(--card-bg);
-      padding: 32px 22px 22px 22px;
-      border-radius: 18px;
-      box-shadow: var(--shadow);
       position: relative;
+      overflow: hidden;
     }
-    .category {
-      margin-bottom: 28px;
+    .order-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(230,57,70,0.06) 1px,transparent 1px), linear-gradient(90deg,rgba(230,57,70,0.06) 1px,transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
     }
+    .order-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8em, 4vw, 2.8em); font-weight: 800; position: relative; }
+    .order-hero h1 span { background: linear-gradient(135deg, var(--red), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .order-hero p { color: #999; margin-top: 8px; position: relative; }
+
+    /* Layout */
+    .page-wrap { max-width: 800px; margin: 32px auto 60px; padding: 0 16px; }
+
+    /* Category */
+    .category { margin-bottom: 32px; animation: fadeUp 0.5s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
     .category-title {
-      font-size: 1.15em;
-      font-weight: bold;
-      margin-bottom: 12px;
-      color: var(--primary);
-      letter-spacing: 1px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78em; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--red); margin-bottom: 12px; padding: 0 4px;
+      display: flex; align-items: center; gap: 10px;
     }
+    .category-title::after { content: ''; flex: 1; height: 1px; background: rgba(230,57,70,0.2); }
+
     .item-row {
-      display: flex;
-      align-items: center;
-      background: #fff8f0;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(217,83,79,0.07);
-      margin-bottom: 10px;
-      padding: 10px 12px;
-      transition: box-shadow 0.2s;
+      display: flex; align-items: center; gap: 12px;
+      background: var(--glass); border: 1px solid var(--glass-b); border-radius: 12px;
+      padding: 12px 16px; margin-bottom: 8px;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
     }
-    .item-row:hover {
-      box-shadow: 0 4px 16px rgba(217,83,79,0.13);
+    .item-row:hover { border-color: rgba(230,57,70,0.3); background: rgba(230,57,70,0.04); transform: translateX(3px); }
+    .item-name { flex: 1; font-weight: 500; font-size: 0.97em; color: var(--text); }
+    .item-price { font-weight: 700; color: var(--orange); font-size: 0.97em; min-width: 60px; text-align: right; }
+    .item-qty { display: flex; align-items: center; gap: 8px; }
+    .item-qty input { width: 44px; padding: 6px 4px; border: 1px solid var(--glass-b); border-radius: 7px; font-size: 0.95em; text-align: center; background: rgba(255,255,255,0.07); color: var(--white); font-family: inherit; transition: border-color 0.2s; }
+    .item-qty input:focus { border-color: var(--red); outline: none; }
+    .add-btn, .remove-btn {
+      width: 28px; height: 28px; min-width: 28px; border-radius: 7px; border: none;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      font-size: 1.1em; font-weight: 700; transition: all 0.2s; font-family: inherit;
     }
-    .item-name {
-      flex: 1;
-      font-weight: 500;
-      font-size: 1.08em;
-    }
-    .item-price {
-      width: 70px;
-      font-weight: 600;
-      color: var(--primary);
-      text-align: right;
-      margin-top: 6px;
-    }
-    .item-qty input {
-      width: 48px;
-      padding: 6px 4px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
-      text-align: center;
-      margin-left: 0px;
-    }
+    .add-btn    { background: rgba(230,57,70,0.15); color: var(--red); }
+    .remove-btn { background: rgba(255,255,255,0.06); color: #ccc; }
+    .add-btn:hover    { background: var(--red); color: var(--white); }
+    .remove-btn:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+    /* Address */
+    .address-block { margin: 28px 0; }
+    .address-label { font-size: 0.85em; font-weight: 600; color: #aaa; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .address-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--glass-b); font-size: 0.97em; font-family: inherit; resize: vertical; background: var(--glass); color: var(--white); transition: border-color 0.2s; }
+    .address-textarea:focus { border-color: var(--red); outline: none; box-shadow: 0 0 0 3px rgba(230,57,70,0.1); }
+    .address-textarea::placeholder { color: #555; }
+
+    /* Order summary */
     .order-summary {
-      position: sticky;
-      bottom: 0;
-      background: #fff8f0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(217,83,79,0.07);
-      margin-top: 32px;
-      padding: 18px 16px 10px 16px;
-      z-index: 10;
+      position: sticky; bottom: 12px;
+      background: rgba(17,17,17,0.95); backdrop-filter: blur(16px);
+      border: 1px solid rgba(230,57,70,0.25); border-radius: 16px;
+      padding: 20px; margin-top: 24px;
+      box-shadow: 0 -4px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(230,57,70,0.05);
     }
-    .order-summary ul {
-      margin: 0 0 8px 0;
-      padding-left: 18px;
-    }
-    .total {
-      font-weight: bold;
-      margin-top: 10px;
-      color: #006600;
-      font-size: 1.15em;
-    }
-    button, .order-btn {
+    .summary-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.9em; font-weight: 700; color: #aaa; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    .order-summary ul { list-style: none; padding: 0; margin: 0 0 12px 0; display: flex; flex-direction: column; gap: 6px; }
+    .order-summary li { font-size: 0.9em; color: #ccc; display: flex; justify-content: space-between; }
+    .order-summary li span { color: var(--orange); font-weight: 600; }
+    .total { font-family: 'Space Grotesk', sans-serif; font-size: 1.1em; font-weight: 700; color: #4ade80; border-top: 1px solid var(--glass-b); padding-top: 10px; margin-top: 4px; }
+    .empty-msg { color: #555; font-size: 0.92em; }
+
+    /* Order button */
+    .order-btn {
+      display: block; width: 100%;
       background: var(--green);
-      color: #fff;
-      border: none;
-      border-radius: 24px;
-      padding: 12px 28px;
-      font-size: 1.08em;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 10px;
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-weight: 700;
-      box-shadow: 0 2px 8px rgba(37,211,102,0.07);
+      color: var(--white);
+      border: none; border-radius: 12px; padding: 16px;
+      font-size: 1.05em; font-weight: 700; font-family: inherit; cursor: pointer;
+      margin-top: 14px; transition: all 0.25s; position: relative; overflow: hidden;
     }
-    button:disabled, .order-btn:disabled {
-      background: #bdbdbd;
-      cursor: not-allowed;
-    }
-    button:hover:not(:disabled), .order-btn:hover:not(:disabled) {
-      background: var(--green-dark);
-    }
-    .note {
-      color: #888;
-      font-size: 0.97em;
-      margin-top: 16px;
-      text-align: center;
-    }    .address-block {
-      margin: 24px 0 0 0;
-    }
-    .address-label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .address-textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-      font-family: inherit;
-      resize: vertical;
-    }    .remove-btn {
-      background-color: #eee;
-      color: #d9534f;
-      border: none;
-      border-radius: 5px;
-      padding: 7px 14px;
-      font-size: 1em;
-      margin-left: 6px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      display: inline-block;
-    }
-    .remove-btn:hover {
-      background-color: #d9534f;
-      color: #fff;
-    }
-    @media (max-width: 900px) {
-      .order-grid { flex-direction: column; gap: 0; }
-      .order-grid > div:last-child { max-width: 100%; }
-    }
-    @media (max-width: 700px) {
-      .container { padding: 8px 1vw 8px 1vw; }
-      .order-header { padding: 18px 0 10px 0; }
-      .order-header h2 { font-size: 1.3em; }
-      .order-header p { font-size: 1em; }
-      .category-title { font-size: 1em; }
-      .item-row { flex-direction: column; align-items: stretch; padding: 8px 6px; }
-      .item-name, .item-price, .item-qty { text-align: left; font-size: 1em; }
-      .item-qty { margin-top: 6px; }
-      .add-btn, .remove-btn, button, .order-btn {
-        width: 100%;
-        margin: 6px 0 0 0;
-        font-size: 1em;
-        padding: 10px 0;
-      }
-      .order-summary { padding: 12px 6px 8px 6px; font-size: 0.98em; }
-      .address-textarea { font-size: 1em; }
+    .order-btn::before { content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%; background: rgba(255,255,255,0.15); transform: skewX(-20deg); transition: left 0.5s; }
+    .order-btn:hover::before { left: 160%; }
+    .order-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+    .order-btn:not(:disabled):hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.25); }
+    .note { color: #555; font-size: 0.82em; text-align: center; margin-top: 12px; }
+
+    @media (max-width: 600px) {
+      .item-row { flex-wrap: wrap; }
+      .item-name { width: 100%; }
+      .item-price { flex: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="order-header">
-    <h2>Order Online</h2>
-    <p>Fresh, fast, and delivered to your table or door!</p>
+
+  <!-- Navbar -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="logo.png" alt="Code N Curry" />
+      <span>Code N Curry</span>
+    </a>
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </nav>
+
+  <!-- Hero -->
+  <div class="order-hero">
+    <h1>Order <span>Online</span></h1>
+    <p>Fresh, fast, and delivered straight to you!</p>
   </div>
-  <div class="container">
+
+  <div class="page-wrap">
     <form id="orderForm">
       <div id="menu"></div>
-        <div class="address-block">
-          <label for="address" class="address-label">Delivery Address</label>
-          <textarea id="address" name="address" rows="2" class="address-textarea" placeholder="Enter your address (optional for dine-in)"></textarea>
-        </div>
-      <div class="order-summary" id="orderSummary">
-        <div>No items selected.</div>
+
+      <div class="address-block">
+        <label for="address" class="address-label">Delivery Address</label>
+        <textarea id="address" name="address" rows="2" class="address-textarea" placeholder="Enter your address (optional for dine-in)"></textarea>
       </div>
-      <button type="submit" id="whatsappBtn" disabled>Order via WhatsApp</button>
+
+      <div class="order-summary" id="orderSummary">
+        <div class="summary-title">Your Order</div>
+        <div class="empty-msg">No items selected yet.</div>
+      </div>
+      <button type="submit" id="whatsappBtn" class="order-btn" disabled>🛒 Place Order via WhatsApp</button>
       <div class="note">Order will be sent via WhatsApp. No payment required on this page.</div>
     </form>
   </div>
-<script>
-// ========== CSV Fetch and Parse ==========
+
+  <script>
 async function fetchMenuCSV(path) {
   const resp = await fetch(path);
   const csv = await resp.text();
   return parseCSV(csv);
 }
-
 function parseCSV(csv) {
   const lines = csv.trim().split('\n');
   const header = lines[0].split(',').map(h => h.trim());
@@ -235,8 +179,6 @@ function parseCSV(csv) {
     return obj;
   });
 }
-
-// ========== Render Menu ==========
 function renderMenu(menuData) {
   const grouped = {};
   menuData.forEach(item => {
@@ -245,126 +187,99 @@ function renderMenu(menuData) {
   });
   const menuDiv = document.getElementById('menu');
   menuDiv.innerHTML = '';
-  Object.entries(grouped).forEach(([cat, items]) => {
+  Object.entries(grouped).forEach(([cat, items], ci) => {
     const catDiv = document.createElement('div');
     catDiv.className = 'category';
+    catDiv.style.animationDelay = (ci * 0.06) + 's';
     catDiv.innerHTML = `<div class="category-title">${cat}</div>`;
-    items.forEach((item, idx) => {
+    items.forEach(item => {
       const row = document.createElement('div');
       row.className = 'item-row';
       row.innerHTML = `
         <div class="item-name">${item.Item}</div>
         <div class="item-price">₹${item.Price}</div>
         <div class="item-qty">
+          <button type="button" class="remove-btn" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">−</button>
           <input type="number" min="0" max="99" value="0" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">
-          <button type="button" class="add-btn" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">Add</button>
-          <button type="button" class="remove-btn" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">Remove</button>
-        </div>
-
-      `;
+          <button type="button" class="add-btn" data-item="${item.Item}" data-category="${cat}" data-price="${item.Price}">+</button>
+        </div>`;
       catDiv.appendChild(row);
     });
     menuDiv.appendChild(catDiv);
   });
 }
-
-// ========== Order Logic ==========
 function getOrderSelections() {
   const inputs = document.querySelectorAll('.item-qty input');
   const items = [];
   inputs.forEach(input => {
     const qty = parseInt(input.value, 10);
-    if (qty > 0) {
-      items.push({
-        category: input.getAttribute('data-category'),
-        item: input.getAttribute('data-item'),
-        price: parseFloat(input.getAttribute('data-price')),
-        qty: qty
-      });
-    }
+    if (qty > 0) items.push({ category: input.dataset.category, item: input.dataset.item, price: parseFloat(input.dataset.price), qty });
   });
   return items;
 }
-
 function updateOrderSummary() {
   const selections = getOrderSelections();
   const summaryDiv = document.getElementById('orderSummary');
   const btn = document.getElementById('whatsappBtn');
-  if (selections.length === 0) {
-    summaryDiv.innerHTML = '<div>No items selected.</div>';
+  if (!selections.length) {
+    summaryDiv.innerHTML = '<div class="summary-title">Your Order</div><div class="empty-msg">No items selected yet.</div>';
     btn.disabled = true;
     return;
   }
   let total = 0;
-  let html = '<ul style="padding-left:18px">';
+  let html = '<div class="summary-title">Your Order</div><ul>';
   selections.forEach(sel => {
-    const itemTotal = sel.price * sel.qty;
-    total += itemTotal;
-    html += `<li>${sel.item} (${sel.qty} x ₹${sel.price}) = ₹${itemTotal}</li>`;
+    const t = sel.price * sel.qty;
+    total += t;
+    html += `<li>${sel.item} × ${sel.qty}<span>₹${t}</span></li>`;
   });
-  html += '</ul>';
-  html += `<div class="total">Total: ₹${total}</div>`;
+  html += `</ul><div class="total">Total: ₹${total}</div>`;
   summaryDiv.innerHTML = html;
   btn.disabled = false;
-  btn.textContent = "Order via WhatsApp";
+  btn.textContent = `🛒 Place Order via WhatsApp (₹${total})`;
 }
-
-// ========== WhatsApp Order ==========
 function generateWhatsAppMessage(selections) {
   let msg = 'Hello, I would like to place the following order:%0A';
-  selections.forEach(sel => {
-    msg += `- ${sel.item} (${sel.qty} x ₹${sel.price})%0A`;
-  });
-  const total = selections.reduce((sum, s) => sum + s.price * s.qty, 0);
+  selections.forEach(sel => { msg += `- ${sel.item} (${sel.qty} x ₹${sel.price})%0A`; });
+  const total = selections.reduce((s, x) => s + x.price * x.qty, 0);
   msg += `Total: ₹${total}`;
-  const address = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
-  if(address) msg += `%0ADelivery Address: ${encodeURIComponent(address)}`;
+  const address = document.getElementById('address').value.trim();
+  if (address) msg += `%0ADelivery Address: ${encodeURIComponent(address)}`;
   return msg;
 }
-
-function getWhatsAppLink(message, phoneNumber='') {
-  // phoneNumber should be in international format, e.g., 911234567890
-  // If left blank, user chooses contact in WhatsApp
-  return `https://wa.me/${phoneNumber}?text=${message}`;
-}
-
-// ========== Event Listeners ==========
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
   const menuData = await fetchMenuCSV('menu.csv');
   renderMenu(menuData);
   updateOrderSummary();
   document.getElementById('menu').addEventListener('input', updateOrderSummary);
-    document.getElementById('menu').addEventListener('click', function(e) {
-      if (e.target.classList.contains('add-btn')) {
-        const input = e.target.parentElement.querySelector('input[type="number"]');
-        if (input) {
-          let val = parseInt(input.value, 10) || 0;
-          input.value = val + 1;
-          updateOrderSummary();
-        }
-      }
-      if (e.target.classList.contains('remove-btn')) {
-        const input = e.target.parentElement.querySelector('input[type="number"]');
-        if (input) {
-          let val = parseInt(input.value, 10) || 0;
-          if (val > 0) {
-            input.value = val - 1;
-            updateOrderSummary();
-          }
-        }
-      }
-    });
-  document.getElementById('orderForm').addEventListener('submit', function(e) {
+  document.getElementById('menu').addEventListener('click', function (e) {
+    if (e.target.classList.contains('add-btn')) {
+      const input = e.target.parentElement.querySelector('input[type="number"]');
+      if (input) { input.value = (parseInt(input.value) || 0) + 1; updateOrderSummary(); }
+    }
+    if (e.target.classList.contains('remove-btn')) {
+      const input = e.target.parentElement.querySelector('input[type="number"]');
+      if (input && parseInt(input.value) > 0) { input.value = parseInt(input.value) - 1; updateOrderSummary(); }
+    }
+  });
+  document.getElementById('orderForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const selections = getOrderSelections();
-    if (selections.length === 0) return;
+    if (!selections.length) return;
     const msg = generateWhatsAppMessage(selections);
-    // Set your WhatsApp phone number in international format (without +), or leave blank for user to pick
-    const waLink = getWhatsAppLink(msg, /*'911234567890'*/ '');
-    window.open(waLink, '_blank');
+    window.open(`https://wa.me/919656553860?text=${msg}`, '_blank');
     document.getElementById('whatsappBtn').textContent = "Sending...";
   });
 });
-</script>
+  </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
